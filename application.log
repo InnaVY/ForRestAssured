@@ -1,0 +1,77 @@
+[main] DEBUG org.apache.http.impl.conn.BasicClientConnectionManager  - Get connection for route {s}->https://gorest.co.in:443
+[main] DEBUG org.apache.http.impl.conn.DefaultClientConnectionOperator  - Connecting to gorest.co.in:443
+[main] DEBUG org.apache.http.client.protocol.RequestAddCookies  - CookieSpec selected: ignoreCookies
+[main] DEBUG org.apache.http.client.protocol.RequestAuthCache  - Auth cache not set in the context
+[main] DEBUG org.apache.http.client.protocol.RequestProxyAuthentication  - Proxy auth state: UNCHALLENGED
+[main] DEBUG org.apache.http.impl.client.DefaultHttpClient  - Attempt 1 to execute request
+[main] DEBUG org.apache.http.impl.conn.DefaultClientConnection  - Sending request: POST /public/v1/users HTTP/1.1
+[main] DEBUG org.apache.http.wire  -  >> "POST /public/v1/users HTTP/1.1[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  >> "Authorization: Bearer 6e398124a1dd58b3e41e21ec5e41a269137a8771586f4fc839091bcc99606ed3[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  >> "Accept: application/json, application/javascript, text/javascript, text/json[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  >> "Content-Type: application/json[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  >> "Content-Length: 90[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  >> "Host: gorest.co.in[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  >> "Connection: Keep-Alive[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  >> "User-Agent: Apache-HttpClient/4.5.13 (Java/15.0.2)[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  >> "Accept-Encoding: gzip,deflate[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  >> "[\r][\n]"
+[main] DEBUG org.apache.http.headers  - >> POST /public/v1/users HTTP/1.1
+[main] DEBUG org.apache.http.headers  - >> Authorization: Bearer 6e398124a1dd58b3e41e21ec5e41a269137a8771586f4fc839091bcc99606ed3
+[main] DEBUG org.apache.http.headers  - >> Accept: application/json, application/javascript, text/javascript, text/json
+[main] DEBUG org.apache.http.headers  - >> Content-Type: application/json
+[main] DEBUG org.apache.http.headers  - >> Content-Length: 90
+[main] DEBUG org.apache.http.headers  - >> Host: gorest.co.in
+[main] DEBUG org.apache.http.headers  - >> Connection: Keep-Alive
+[main] DEBUG org.apache.http.headers  - >> User-Agent: Apache-HttpClient/4.5.13 (Java/15.0.2)
+[main] DEBUG org.apache.http.headers  - >> Accept-Encoding: gzip,deflate
+[main] DEBUG org.apache.http.wire  -  >> "{"gender":"female","name":"Darryl Bogan","email":"dallas.von@gmail.com","status":"active"}"
+[main] DEBUG org.apache.http.wire  -  << "HTTP/1.1 201 Created[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  << "Server: nginx[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  << "Date: Wed, 27 Oct 2021 14:06:54 GMT[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  << "Content-Type: application/json; charset=utf-8[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  << "Transfer-Encoding: chunked[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  << "Connection: keep-alive[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  << "X-Frame-Options: SAMEORIGIN[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  << "X-XSS-Protection: 1; mode=block[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  << "X-Content-Type-Options: nosniff[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  << "X-Download-Options: noopen[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  << "X-Permitted-Cross-Domain-Policies: none[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  << "Referrer-Policy: strict-origin-when-cross-origin[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  << "Location: https://gorest.co.in/public/v1/users/3102[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  << "ETag: W/"356f3199be8d28d42a56733ce50fe451"[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  << "Cache-Control: max-age=0, private, must-revalidate[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  << "X-Request-Id: edbab519-170d-4b95-9e22-6d904af97d96[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  << "X-Runtime: 0.024291[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  << "Strict-Transport-Security: max-age=63072000; includeSubDomains[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  << "Vary: Origin[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  << "[\r][\n]"
+[main] DEBUG org.apache.http.impl.conn.DefaultClientConnection  - Receiving response: HTTP/1.1 201 Created
+[main] DEBUG org.apache.http.headers  - << HTTP/1.1 201 Created
+[main] DEBUG org.apache.http.headers  - << Server: nginx
+[main] DEBUG org.apache.http.headers  - << Date: Wed, 27 Oct 2021 14:06:54 GMT
+[main] DEBUG org.apache.http.headers  - << Content-Type: application/json; charset=utf-8
+[main] DEBUG org.apache.http.headers  - << Transfer-Encoding: chunked
+[main] DEBUG org.apache.http.headers  - << Connection: keep-alive
+[main] DEBUG org.apache.http.headers  - << X-Frame-Options: SAMEORIGIN
+[main] DEBUG org.apache.http.headers  - << X-XSS-Protection: 1; mode=block
+[main] DEBUG org.apache.http.headers  - << X-Content-Type-Options: nosniff
+[main] DEBUG org.apache.http.headers  - << X-Download-Options: noopen
+[main] DEBUG org.apache.http.headers  - << X-Permitted-Cross-Domain-Policies: none
+[main] DEBUG org.apache.http.headers  - << Referrer-Policy: strict-origin-when-cross-origin
+[main] DEBUG org.apache.http.headers  - << Location: https://gorest.co.in/public/v1/users/3102
+[main] DEBUG org.apache.http.headers  - << ETag: W/"356f3199be8d28d42a56733ce50fe451"
+[main] DEBUG org.apache.http.headers  - << Cache-Control: max-age=0, private, must-revalidate
+[main] DEBUG org.apache.http.headers  - << X-Request-Id: edbab519-170d-4b95-9e22-6d904af97d96
+[main] DEBUG org.apache.http.headers  - << X-Runtime: 0.024291
+[main] DEBUG org.apache.http.headers  - << Strict-Transport-Security: max-age=63072000; includeSubDomains
+[main] DEBUG org.apache.http.headers  - << Vary: Origin
+[main] DEBUG org.apache.http.impl.client.DefaultHttpClient  - Connection can be kept alive indefinitely
+[main] DEBUG io.restassured.internal.RequestSpecificationImpl$RestAssuredHttpBuilder  - Parsing response as: application/json; charset=utf-8
+[main] DEBUG io.restassured.internal.RequestSpecificationImpl$RestAssuredHttpBuilder  - Parsed data to instance of: class org.apache.http.conn.EofSensorInputStream
+[main] DEBUG org.apache.http.wire  -  << "79[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  << "{"meta":null,"data":{"id":3102,"name":"Darryl Bogan","email":"dallas.von@gmail.com","gender":"female","status":"active"}}"
+[main] DEBUG org.apache.http.wire  -  << "[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  << "0[\r][\n]"
+[main] DEBUG org.apache.http.wire  -  << "[\r][\n]"
+[main] DEBUG org.apache.http.impl.conn.BasicClientConnectionManager  - Releasing connection org.apache.http.impl.conn.ManagedClientConnectionImpl@4e4d0a0b
+[main] DEBUG org.apache.http.impl.conn.BasicClientConnectionManager  - Connection can be kept alive indefinitely
