@@ -17,13 +17,6 @@ public class User {
         this.status = "active";
     }
 
-    //the following constructor is for response object
-    public User(JSONObject responseObj){
-        this.name = responseObj.getJSONObject("data").getString("name");
-        this.email = responseObj.getJSONObject("data").getString("email");
-        this.gender = responseObj.getJSONObject("data").getString("gender");
-        this.status = responseObj.getJSONObject("data").getString("status");
-    }
 
     public String getName(){
         return this.name;
