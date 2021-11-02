@@ -5,9 +5,9 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
-
 import static io.restassured.RestAssured.*;
 import static org.apache.http.HttpStatus.*;
+
 
 public class MainTest {
     private String token = "6e398124a1dd58b3e41e21ec5e41a269137a8771586f4fc839091bcc99606ed3";
@@ -37,85 +37,40 @@ public class MainTest {
 
     }
 
-    @Test
-    public void e2eApiWorkflow(){
-        //Creation of User data
-        User userRequest= new User();
-        //New user creation
-        Response userCreation= userCreation(userRequest);
-        //Assertion of status Code and fields of created user
-                userCreation.
-                then().
-                statusCode(SC_CREATED).
-                assertThat().body("data.name", Matchers.equalTo(userRequest.getName())).
-                assertThat().body("data.email", Matchers.equalTo(userRequest.getEmail())).
-                assertThat().body("data.gender", Matchers.equalTo(userRequest.getGender())).
-                assertThat().body("data.status", Matchers.equalTo(userRequest.getStatus())).
-                log().
-                all();
+    /**
+     * This test is checking e2e api workflow:
+     * 1) Create user
+     * 2) Update user
+     * 3) Delete user
+     * 4) Check that deleted user is absent
+     */
+   @Test
+    public void e2eApiWorkflow2(){
+      //Creation of User data
+       User userRequest= new User();
+
+       //New user creation
+      Response userCreation= UserGRUDOperations.createUser(userRequest, token, uri);
+
+       //Assertion of status Code and fields of created user
+       UserGRUDOperations.assertionOfUserCreation(userCreation, userRequest);
+
        //Getting of  user id
-        JsonPath jsonPath = userCreation.jsonPath();
-        int id = jsonPath.get("data.id");
+       JsonPath jsonPath = userCreation.jsonPath();
+       int id = jsonPath.get("data.id");
 
        //Updating user data (changing of name, email)
        User userUpdated = new User(userRequest);
-       //Changing user data
-       Response userUpdate = userUpdate(userUpdated, id);
-       //Assertion of status code and updated fields of user
-        userUpdate.
-                then().
-                statusCode(SC_OK).
-                assertThat().body("data.name", Matchers.equalTo(userUpdated.getName())).
-                assertThat().body("data.email", Matchers.equalTo(userUpdated.getEmail())).
-                assertThat().body("data.status", Matchers.equalTo(userUpdated.getStatus())).
-                log().
-                all();
 
-        //Deletion of the user
-        Response userDelete =given().
-                header("Content-Type", "application/json").
-                contentType(ContentType.JSON).
-                accept(ContentType.JSON).
-                header("Authorization", "Bearer "+token).
-                when().
-                delete(uri+"/"+id);
-        //Assertion of Status Code
-          userDelete.then().
-          statusCode(SC_NO_CONTENT).
-          log().all();
-          //Checking for absence of the deleted user
-        Response getAbsent= given().
-                header("Content-Type", "application/json").
-                contentType(ContentType.JSON).
-                accept(ContentType.JSON).
-                when().get(uri+"/"+id);
+       /*Changing of the created user data and assertion of Status Code (200)
+       *and fields (name, email, status)
+        */
+       UserGRUDOperations.updateUserAndAssert(userUpdated, id, token, uri);
 
-           getAbsent.then()
-                   .statusCode(SC_NOT_FOUND)
-                   .log().all();
+       //Deletion of the changed user and Status Code assertion (204)
+       UserGRUDOperations.deleteUserAndAssert(id, token, uri);
 
-    }
-   private Response userCreation(User user){
-       return given().
-               header("Content-Type", "application/json").
-               contentType(ContentType.JSON).
-               accept(ContentType.JSON).
-               header("Authorization", "Bearer "+token).
-               body(user.toJString()).
-               when().
-               post(uri);
-
+       //Checking for the absence of the deleted user
+       UserGRUDOperations.getDeletedUserAndAssert(id, uri);
    }
-   private Response userUpdate(User user, int id){
-       return given().
-               header("Content-Type", "application/json").
-               contentType(ContentType.JSON).
-               accept(ContentType.JSON).
-               header("Authorization", "Bearer "+token).
-               body(user.toJStringUpdate()).
-               when().
-               put(uri+"/"+id);
-
-   }
-
 }
