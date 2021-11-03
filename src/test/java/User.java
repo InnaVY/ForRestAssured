@@ -16,7 +16,12 @@ public class User {
         this.gender = faker.random().nextBoolean()?"male":"female";
         this.status = "active";
     }
-
+   public User(User user){
+       Faker faker = new Faker(new Locale("en-GB"));
+       this.email = faker.internet().emailAddress();
+       this.name = faker.name().fullName();
+       this.status="active";
+   }
 
     public String getName(){
         return this.name;
@@ -40,5 +45,9 @@ public class User {
                 "\"gender\": \""+this.gender+"\"," +
                 "\"status\": \""+this.status+"\"}";
     }
-
+    public String toJStringUpdate(){
+        return "{\"name\": \""+this.name+"\"," +
+                "\"email\": \""+this.email+"\"," +
+                "\"status\": \""+this.status+"\"}";
+    }
 }
