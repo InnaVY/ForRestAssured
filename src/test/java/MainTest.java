@@ -46,14 +46,23 @@ public class MainTest {
      */
    @Test
     public void e2eApiWorkflow2(){
+      UserRequestPayload userRequestPayload = new UserRequestPayload();
       //Creation of User data
        User userRequest= new User();
 
        //New user creation
-      Response userCreation= UserGRUDOperations.createUser(userRequest, token, uri);
+      Response userCreation= userRequestPayload.createUser(userRequest);
 
        //Assertion of status Code and fields of created user
-       UserGRUDOperations.assertionOfUserCreation(userCreation, userRequest);
+       userCreation.
+               then().
+               statusCode(SC_CREATED).
+               assertThat().body("data.name", Matchers.equalTo(userRequest.getName())).
+               assertThat().body("data.email", Matchers.equalTo(userRequest.getEmail())).
+               assertThat().body("data.gender", Matchers.equalTo(userRequest.getGender())).
+               assertThat().body("data.status", Matchers.equalTo(userRequest.getStatus())).
+               log().
+               all();
 
        //Getting of  user id
        JsonPath jsonPath = userCreation.jsonPath();
@@ -62,15 +71,31 @@ public class MainTest {
        //Updating user data (changing of name, email)
        User userUpdated = new User(userRequest);
 
-       /*Changing of the created user data and assertion of Status Code (200)
-       *and fields (name, email, status)
-        */
-       UserGRUDOperations.updateUserAndAssert(userUpdated, id, token, uri);
+       //Changing of the created user data
+       Response userUpdateResponse= userRequestPayload.updateUser(userUpdated, id);
 
-       //Deletion of the changed user and Status Code assertion (204)
-       UserGRUDOperations.deleteUserAndAssert(id, token, uri);
+       //Assertion of Status Code (200) and fields (name, email, status)
+       userUpdateResponse.
+               then().
+               statusCode(SC_OK).
+               assertThat().body("data.name", Matchers.equalTo(userUpdated.getName())).
+               assertThat().body("data.email", Matchers.equalTo(userUpdated.getEmail())).
+               assertThat().body("data.status", Matchers.equalTo(userUpdated.getStatus())).
+               log().
+               all();
+       //Deletion of the changed user
+      Response userDeleteResponse= userRequestPayload.deleteUser(id);
 
-       //Checking for the absence of the deleted user
-       UserGRUDOperations.getDeletedUserAndAssert(id, uri);
+       //Status Code assertion (204) of user deletion
+       userDeleteResponse.then().
+               statusCode(SC_NO_CONTENT).
+               log().all();
+
+       //Checking for the absence of the deleted user (Status Code = 404)
+      Response getDeletedUserResponse= userRequestPayload.getDeletedUser(id);
+
+       getDeletedUserResponse.then()
+               .statusCode(SC_NOT_FOUND)
+               .log().all();
    }
 }
