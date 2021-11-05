@@ -1,24 +1,21 @@
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-
-import java.util.Properties;
+import property.manager.PropertyManager;
 
 import static io.restassured.RestAssured.given;
 
 
 public class UserRequestPayload {
-
-    private Property property;
-    private Properties p;
-    private String token;
     private String url;
+    private String token;
 
-    public UserRequestPayload(){
-        this.property= new Property();
-        this.p = property.getProperties();
-        this.token = p.getProperty("token");
-        this.url = p.getProperty("url");
+
+    public UserRequestPayload() {
+        PropertyManager.setProperties();
+       this.url = PropertyManager.getProperty("url");
+       this.token  = PropertyManager.getProperty("token");
     }
+
     public  Response createUser(User user){
         return given().
                 header("Content-Type", "application/json").
