@@ -22,12 +22,23 @@ public class UserRequestPayload {
                 contentType(ContentType.JSON).
                 accept(ContentType.JSON).
                 header("Authorization", "Bearer "+token).
-                body(user.toJString()).
+                //body(user.toJString()).
+                body(user.getUserJsonForm().toJStringNew()).
                 when().
                 post(url);
 
     }
+    public  Response createModifiedUser(String modified){
+        return given().
+                header("Content-Type", "application/json").
+                contentType(ContentType.JSON).
+                accept(ContentType.JSON).
+                header("Authorization", "Bearer "+token).
+                body(modified).
+                when().
+                post(url);
 
+    }
     public Response updateUser(User userUpdated, int id){
         return given().
                 header("Content-Type", "application/json").
@@ -35,6 +46,17 @@ public class UserRequestPayload {
                 accept(ContentType.JSON).
                 header("Authorization", "Bearer "+token).
                 body(userUpdated.toJStringUpdate()).
+                when().
+                put(url+"/"+id);
+
+    }
+    public Response updateModifiedUser(String userUpdated, int id){
+        return given().
+                header("Content-Type", "application/json").
+                contentType(ContentType.JSON).
+                accept(ContentType.JSON).
+                header("Authorization", "Bearer "+token).
+                body(userUpdated).
                 when().
                 put(url+"/"+id);
 
@@ -51,7 +73,7 @@ public class UserRequestPayload {
 
     }
 
-    public Response getDeletedUser(int id) {
+    public Response getUser(int id) {
        return given().
                 header("Content-Type", "application/json").
                 contentType(ContentType.JSON).
@@ -60,4 +82,59 @@ public class UserRequestPayload {
 
 
     }
-}
+    public  Response createUserWithoutToken(User user) {
+        return given().
+                header("Content-Type", "application/json").
+                contentType(ContentType.JSON).
+                accept(ContentType.JSON).
+                // header("Authorization", "Bearer "+token).
+                        body(user.getUserJsonForm().toJStringNew()).
+                when().
+                post(url);
+    }
+    public  Response createUserWithInvalidToken(User user) {
+       String invalidToken = token.substring(5, token.length()-3);
+        return given().
+                header("Content-Type", "application/json").
+                contentType(ContentType.JSON).
+                accept(ContentType.JSON).
+                header("Authorization", "Bearer "+invalidToken).
+                        body(user.getUserJsonForm().toJStringNew()).
+                when().
+                post(url);
+    }
+    public  Response createUserWithXmlContentType(User user) {
+
+        return given().
+                header("Content-Type", "application/xml").
+                contentType(ContentType.XML).
+                accept(ContentType.XML).
+                header("Authorization", "Bearer "+token).
+                body(user.getUserJsonForm().toJStringNew()).
+                when().
+                post(url);
+    }
+    public Response updateUserWithoutToken(User userUpdated, int id){
+        return given().
+                header("Content-Type", "application/json").
+                contentType(ContentType.JSON).
+                accept(ContentType.JSON).
+               // header("Authorization", "Bearer "+token).
+                body(userUpdated.getUserJsonForm().toJStringUpdate()).
+                when().
+                put(url+"/"+id);
+
+    }
+    public Response deleteUserWithoutToken(int id){
+        //Deletion of the user
+        return given().
+                header("Content-Type", "application/json").
+                contentType(ContentType.JSON).
+                accept(ContentType.JSON).
+               // header("Authorization", "Bearer "+token).
+                when().
+                delete(url+"/"+id);
+
+    }
+
+    }
