@@ -5,12 +5,12 @@ public class UserDataProvider {
     @DataProvider(name = "All fields")
     public static Object[][] allFields() {
         return new Object[][]{
-                {"name", "int", "is invalid"}, {"email", "int", "is invalid"},
-                {"gender", "int", "is invalid"}, {"status", "int", "is invalid"},
-                {"name", "null", "can't be blank"}, {"email", "null", "can't be blank"},
-                {"gender", "null", "can't be blank"}, {"status", "null", "can't be blank"},
-                {"email", "wrongValue", "is invalid"}, {"gender", "wrongValue", "is invalid"},
-                {"status", "wrongValue", "is invalid"}
+                {"name", "int"}, {"email", "int"},
+                {"gender", "int"}, {"status", "int"},
+                {"name", "null"}, {"email", "null"},
+                {"gender", "null"}, {"status", "null"},
+                {"email", "wrongValue"}, {"gender", "wrongValue"},
+                {"status", "wrongValue"}
         };
     }
 

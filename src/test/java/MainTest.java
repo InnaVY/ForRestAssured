@@ -103,13 +103,12 @@ public class MainTest {
        //Status Code 404 assertion and message assertion
        response.then().
                statusCode(SC_NOT_FOUND).
-               assertThat().body("data.message", Matchers.equalTo("Resource not found")).
                log().all();
    }
    @Test (description ="Create user with wrong user fields",
           dataProvider = "All fields",
           dataProviderClass = UserDataProvider.class)
-    public void createWithWrongFields(String field, String changes, String message){
+    public void createWithWrongFields(String field, String changes){
        //Creation of user with correct data
        User user = new User();
        //Creation the JSON String with wrong User data
@@ -120,7 +119,6 @@ public class MainTest {
        response.
                then().
                statusCode(SC_UNPROCESSABLE_ENTITY).
-               body("data[0].message", Matchers.equalTo(message)).
                log().all();
    }
 
@@ -141,7 +139,6 @@ public class MainTest {
        Response response2 = userRequestPayload.createUser(user2);
        response2.then().
                statusCode(SC_UNPROCESSABLE_ENTITY).
-               body("data[0].message", Matchers.equalTo("has already been taken")).
                log().all();
    }
     @Test(description = "Update with name/email that exists",
@@ -166,13 +163,12 @@ public class MainTest {
         Response  response3 = userRequestPayload.updateUser(user3,id);
             response3.then().
                     statusCode(SC_UNPROCESSABLE_ENTITY).
-                    body("data[0].message", Matchers.equalTo("has already been taken")).
                     log().all();
         }
     @Test (description ="Update user with wrong user fields",
             dataProvider = "All fields",
             dataProviderClass = UserDataProvider.class)
-    public void updateWithWrongFields(String field, String changes, String message){
+    public void updateWithWrongFields(String field, String changes){
         //Creation of user with correct data
         User user = new User();
         Response response1 = userRequestPayload.createUser(user);
@@ -188,7 +184,6 @@ public class MainTest {
         response.
                 then().
                 statusCode(SC_UNPROCESSABLE_ENTITY).
-                body("data[0].message", Matchers.equalTo(message)).
                 log().all();
     }
     @Test (description = "Create user with wrong JSON format")
@@ -222,7 +217,6 @@ public class MainTest {
         //Status Code 404 assertion and message assertion
         response.then().
                 statusCode(SC_NOT_FOUND).
-                assertThat().body("data.message", Matchers.equalTo("Resource not found")).
                 log().all();
     }
 
@@ -235,7 +229,6 @@ public class MainTest {
        if (aboutToken.equals("invalid")) response =userRequestPayload.createUserWithInvalidToken(user);
        response.then().
                 statusCode(SC_UNAUTHORIZED).
-                assertThat().body("data.message", Matchers.equalTo("Authentication failed")).
                 log().all();
     }
 
@@ -255,7 +248,6 @@ public class MainTest {
        if (method.equals("delete")) response = userRequestPayload.deleteUserWithoutToken(id);
        response.then().
                statusCode(SC_UNAUTHORIZED).
-               assertThat().body("data.message", Matchers.equalTo("Authentication failed")).
                log().all();
     }
     @Test(description = "Application/XML")
