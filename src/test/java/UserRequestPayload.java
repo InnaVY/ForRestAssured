@@ -10,7 +10,7 @@ import static io.restassured.RestAssured.given;
 public class UserRequestPayload {
     private String url;
     private String token;
-    private RequestSpecification requestSpecification = null;
+    private RequestSpecification requestSpecification;
 
 
     public UserRequestPayload() {
