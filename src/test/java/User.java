@@ -3,6 +3,8 @@ import org.json.JSONObject;
 import java.util.Locale;
 
 public class User {
+
+    private UserJsonForm userJsonForm;
     private String name;
     private String email;
     private String gender;
@@ -14,14 +16,63 @@ public class User {
         this.name = faker.name().fullName();
         this.email = faker.internet().emailAddress();
         this.gender = faker.random().nextBoolean()?"male":"female";
-        this.status = "active";
+        this.status = faker.random().nextBoolean()?"active":"inactive";
+        this.userJsonForm = new UserJsonForm(this);
     }
    public User(User user){
        Faker faker = new Faker(new Locale("en-GB"));
        this.email = faker.internet().emailAddress();
        this.name = faker.name().fullName();
-       this.status="active";
+       this.status = faker.random().nextBoolean()?"active":"inactive";
+       this.userJsonForm = new UserJsonForm(this);
    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    public void setField(String field, String value){
+        if (value.equals("word")) {
+            String word = RandomCreation.createRandomWord();
+            switch (field) {
+                case "name":
+                    this.setName(word);
+                    break;
+                case "email":
+                    this.setEmail(word);
+                    break;
+                case "gender":
+                    this.setGender(word);
+                    break;
+                case "status":
+                    this.setStatus(word);
+                    break;
+            }
+        }
+        else {
+                switch (field) {
+                    case "name":
+                        this.setName(null);
+                        break;
+                    case "email":
+                        this.setEmail(null);
+                        break;
+                    case "gender":
+                        this.setGender(null);
+                        break;
+                    case "status":
+                        this.setStatus(null);
+                        break;
+                }
+            }
+        }
 
     public String getName(){
         return this.name;
@@ -39,15 +90,14 @@ public class User {
         return status;
     }
 
+    public UserJsonForm getUserJsonForm() {
+        return userJsonForm;
+    }
     public String toJString(){
-        return "{\"name\": \""+this.name+"\"," +
-                "\"email\": \""+this.email+"\"," +
-                "\"gender\": \""+this.gender+"\"," +
-                "\"status\": \""+this.status+"\"}";
+        return userJsonForm.toJStringNew();
     }
     public String toJStringUpdate(){
-        return "{\"name\": \""+this.name+"\"," +
-                "\"email\": \""+this.email+"\"," +
-                "\"status\": \""+this.status+"\"}";
+        return userJsonForm.toJStringUpdate();
     }
+
 }
